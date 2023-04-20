@@ -73,11 +73,29 @@
       <workItem from="1681967640106" duration="956000" />
       <workItem from="1681999216338" duration="300000" />
       <workItem from="1681999528122" duration="98000" />
-      <workItem from="1681999638957" duration="14907000" />
+      <workItem from="1681999638957" duration="17575000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/pages/LoginPage.tsx</url>
+          <line>48</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/pages/LoginPage.tsx</url>
+          <line>49</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -63,7 +63,12 @@ export default function SignUpPage(): JSX.Element {
                     method: 'POST',
                     body: JSON.stringify({
                         // Add parameters here
-                        arrayToSend
+                        "name": data.user_names.toString(),
+                        "lastname": data.user_lastnames.toString(),
+                        "email": data.user_email.toString(),
+                        "identityNumber": data.identity_number.toString(),
+                        "fingerprintCode": data.fingerprint_code.toString(),
+                        "googleToken": userCredential.user.uid.toString()
                     }),
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8',
@@ -75,7 +80,7 @@ export default function SignUpPage(): JSX.Element {
                         // Handle data
                         if (data.statusCode == 201) {
                             router.push("/DashboardPage").then()
-                        }else{
+                        } else {
                             user.delete().then()
                         }
                     })
@@ -139,7 +144,8 @@ export default function SignUpPage(): JSX.Element {
                         </div>
                         <div>
                             <label htmlFor="fingerprint_code"
-                                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Codigo Dactilar:</label>
+                                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Codigo
+                                Dactilar:</label>
                             <input type="text" id="fingerprint_code" {...register("fingerprint_code")}
                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="" required/>
