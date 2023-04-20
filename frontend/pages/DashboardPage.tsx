@@ -22,7 +22,7 @@ export default function DashboardPage() {
                 setUserUser(null)
             }
             if (userAuth != null) {
-                setUserName('')
+                setUserName(userUser.email)
             }
         }, []
     )
@@ -40,9 +40,7 @@ export default function DashboardPage() {
                         <p className="text-3xl text-black">Informacion del usuario</p>
                     </div>
                     <div className={"mt-10"}>
-                        <p className="text-xl text-black"><span className={"font-bold"}>Nombre Completo: </span> {userName}</p>
-                        <p className="text-xl text-black"><span className={"font-bold"}>Correo: </span>juanito@test.com
-                        </p>
+                        <p className="text-xl text-black"><span className={"font-bold"}>Correo: </span> {userName}</p>
                         <p className="text-xl text-black"><span className={"font-bold"}>Miembro desde: </span>20220827
                         </p>
                     </div>

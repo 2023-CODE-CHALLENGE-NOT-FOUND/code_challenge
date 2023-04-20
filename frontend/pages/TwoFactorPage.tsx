@@ -2,16 +2,25 @@ import { getAuth, signOut } from "firebase/auth";
 import * as React from "react";
 import {useRouter} from "next/router";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {useState} from "react";
 
 type Inputs = {
     user_voice: any
 };
 
 export default function TwoFactorPage (){
+    const [dummy, setDummy] = useState(0 as number)
     const router = useRouter()
     const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => {
         console.log(data);
+        setDummy(dummy+1)
+        if (dummy < 2) {
+            alert("No coinciden los audios, intente de nuevo")
+        }
+        if (dummy == 2) {
+            router.push("/DashboardPage").then()
+        }
     }
     return (
         <>

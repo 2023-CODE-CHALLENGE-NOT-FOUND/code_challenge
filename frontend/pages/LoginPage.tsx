@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useRouter } from 'next/router'
+import {useForm, SubmitHandler} from "react-hook-form";
+import {useRouter} from 'next/router'
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {initializeApp} from "firebase/app";
+import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import Link from "next/link";
 
 type Inputs = {
@@ -30,7 +30,7 @@ const auth = getAuth();
 
 export default function LoginPage(): JSX.Element {
     const router = useRouter()
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+    const {register, handleSubmit, watch, formState: {errors}} = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => {
         console.log(data);
         const email = data.user_name
@@ -40,7 +40,25 @@ export default function LoginPage(): JSX.Element {
                 // Signed in
                 const user = userCredential.user;
                 console.log(user)
-                router.push("/TwoFactorPage").then()
+                const url = `https://backend-code-challenge.onrender.com/user/${user.uid}`;
+                fetch(url).then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        // Handle data
+                        console.log(data.data)
+                        if (data.statusCode == 200 && data.data[0] != null) {
+                            router.push("/TwoFactorPage").then()
+                        } else {
+                            user.delete().then(
+                                () => {
+                                    alert("Usuario no registrado")
+                                }
+                            )
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                    });
                 // ...
             })
             .catch((error) => {
@@ -48,6 +66,7 @@ export default function LoginPage(): JSX.Element {
                 const errorMessage = error.message;
                 console.log(errorMessage)
                 console.log(errorCode)
+                alert("Hubo un error al intentar ingresar. " + errorCode + errorMessage)
             });
     }
 
@@ -56,11 +75,12 @@ export default function LoginPage(): JSX.Element {
     return (
         <>
             <div className={"min-h-screen flex flex-col items-center justify-center bg-red-800"}>
-                <div className={"flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md"}>
+                <div
+                    className={"flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md"}>
                     <img src={"https://www.coopdaquilema.com/wp-content/uploads/2020/08/logo.svg"}
-                           alt={"Banco Pichincha Logo"}
-                           width={"300"}
-                           height={"100"}
+                         alt={"Banco Pichincha Logo"}
+                         width={"300"}
+                         height={"100"}
                     />
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div>
@@ -73,7 +93,7 @@ export default function LoginPage(): JSX.Element {
                         <div>
                             <label htmlFor="password"
                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Contrasena:</label>
-                            <input type="text" id="password" {...register("password", { required: true })}
+                            <input type="password" id="password" {...register("password", {required: true})}
                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="" required/>
                         </div>
