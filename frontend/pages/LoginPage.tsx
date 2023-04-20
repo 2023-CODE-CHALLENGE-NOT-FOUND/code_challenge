@@ -3,16 +3,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from 'next/router'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Link from "next/link";
 
 type Inputs = {
     user_name: string,
     password: string,
 };
-
-
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -28,10 +25,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Link from "next/link";
-
 const auth = getAuth();
 
 
@@ -58,7 +51,7 @@ export default function LoginPage(): JSX.Element {
             });
     }
 
-    console.log(watch("user_name")) // watch input value by passing the name of it
+    // console.log(watch("user_name")) // watch input value by passing the name of it
 
     return (
         <>
@@ -87,13 +80,13 @@ export default function LoginPage(): JSX.Element {
                         {errors.password && <span>This field is required</span>}
                         <div>
                             <button type="submit"
-                                    className="w-full mt-4 focus:outline-none text-white bg-red-800 hover:bg-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900"
+                                    className="w-full mt-4 focus:outline-none text-white bg-red-800 hover:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-red-900"
                             >Ingresar
                             </button>
                         </div>
                     </form>
                     <div>
-                        <Link href={"/SignUpPage"} className={"text-black"}>Has olvidado tu contrasena?</Link>
+                        <Link href={"/SignUpPage"} className={"text-black"}>Aun no te registras?</Link>
                     </div>
                 </div>
             </div>
